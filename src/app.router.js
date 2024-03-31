@@ -19,10 +19,6 @@ const initApp = (app, express) => {
 
     app.use(cors())
 
-    // Media Routing
-    const fullPath = path.join(__dirname, './uploads')
-    app.use("/uploads", express.static(fullPath));
-
     // App Routing
 
     app.get('/welcome', (req, res)=> res.send("Welcome to Desktop Anywhere Server"));

@@ -2,23 +2,50 @@
 import * as dotenv from 'dotenv'
 import express from 'express'
 import initApp from './src/app.router.js';
-import sendEmail from './src/utils/sendEmail.js';
 import { Server, Socket } from 'socket.io';
+import candidateRouter from "./src/modules/Candidate/candidate.router.js"
+import offerRouter from "./src/modules/Offer/offer.router.js"
+import connectDB from './DB/connection.js';
+import { globalErrorHandling } from "./src/utils/errorHandling.js";
+import cors from 'cors'
 
 dotenv.config()
 const app = express()
 const port = 5000 || process.env.PORT
 
 
+// convert Buffer Data
+app.use(express.json({}));
+
+app.use(cors())
 
 app.use(express.static("public"));
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
 
-initApp(app, express)
+// App Routing
+
+app.get('/welcome', (req, res)=> res.send("Welcome to Desktop Anywhere Server"));
+app.use("/candidate", candidateRouter);
+app.use("/connection", offerRouter);
+app.all("*", (req, res, next)=>{
+    return res.json({message: "In-valid routing"});
+}); 
+
+// Error handling middleware
+app.use(globalErrorHandling);
+
+// Connection DB
+connectDB();
+
+// initApp(app, express);
 
 const server = app.listen(port, () => console.log(`app running on port ............... ${port}`));
+
+
+
+
 
 var devises = [];
 
