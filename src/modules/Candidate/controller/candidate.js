@@ -1,5 +1,4 @@
 
-import { compare, hash } from '../../../utils/hashAndCompare.js';
 import candidateModel from './../../../../DB/Models/Candidate.model.js';
 import { asyncHandler } from './../../../utils/errorHandling.js';
 
