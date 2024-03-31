@@ -1,13 +1,13 @@
 
 import * as dotenv from 'dotenv'
 import express from 'express'
-import initApp from './src/app.router.js';
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
+import cors from 'cors'
 import candidateRouter from "./src/modules/Candidate/candidate.router.js"
 import offerRouter from "./src/modules/Offer/offer.router.js"
 import connectDB from './DB/connection.js';
 import { globalErrorHandling } from "./src/utils/errorHandling.js";
-import cors from 'cors'
+
 
 dotenv.config()
 const app = express()
@@ -39,7 +39,6 @@ app.use(globalErrorHandling);
 // Connection DB
 connectDB();
 
-// initApp(app, express);
 
 const server = app.listen(port, () => console.log(`app running on port ............... ${port}`));
 
