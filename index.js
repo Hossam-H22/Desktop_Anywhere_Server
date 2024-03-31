@@ -58,15 +58,21 @@ io.on("connection", (socket)=> {
     socket.on("event", (data)=>{
 
         const { event, message } = data;
-        devises.forEach(sender => {
-            if(sender['id']==socket.id){
+        // devises.forEach(sender => {
+        //     if(sender['id']==socket.id){
 
-                devises.forEach(receiver => {
-                    if(receiver['ip'] == sender['ip'] && receiver['type'] != data['type']){
-                        io.to(receiver.id).emit(event, message);
-                    }
-                });
+        //         devises.forEach(receiver => {
+        //             if(receiver['ip'] == data['ip'] && receiver['type'] != data['type']){
+        //                 io.to(receiver.id).emit(event, message);
+        //             }
+        //         });
 
+        //     }
+        // });
+
+        devises.forEach(receiver => {
+            if(receiver['ip'] == data['ip'] && receiver['type'] != data['type']){
+                io.to(receiver.id).emit(event, message);
             }
         });
 
@@ -76,6 +82,7 @@ io.on("connection", (socket)=> {
     socket.on("addDevice", (data)=>{
         const newDevises = devises.filter(devise => {
             return !(devise['ip'] == data['ip'] && devise['type'] == data['type']);
+            // return !(devise['id'] == socket.id);
         });
         devises = newDevises;
         devises.push({
