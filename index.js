@@ -9,6 +9,8 @@ import stunRouter from "./src/modules/Stun/stun.router.js"
 import trunRouter from "./src/modules/Turn/turn.router.js"
 import connectDB from './DB/connection.js';
 import { globalErrorHandling } from "./src/utils/errorHandling.js";
+import turnModel from './DB/Models/Turn.model.js';
+import stunModel from './DB/Models/Stun.model.js';
 
 
 dotenv.config()
@@ -95,6 +97,17 @@ io.on("connection", (socket)=> {
         });
         devises = newDevises;
         console.log(devises);
+    });
+
+    socket.on("getStunAndTurn", async ()=>{
+        const stun = await stunModel.find();
+        const turn = await turnModel.find();
+        const data = {
+            "stun": stun,
+            "turn": turn,
+        };
+        console.log(data);
+        socket.emit("receiveStunAndTurn", data);
     });
 
 });
