@@ -61,16 +61,36 @@ const io = new Server(server, {
 io.on("connection", (socket)=> {
     // console.log(socket.id);
 
+
+    // socket.emit("event", {
+    //     "ip": "192.168.1.9", // 
+    //     "type": "", // mobile or desktop or web
+    //     "target_type": "", // mobile or desktop or web
+    //     "event": "home", // target event
+    //     "message":{
+    //         "":"",
+    //     },
+    //     "eventError": "error", // error event if target not found
+    //     "messageError": {
+    //         "":"",
+    //     },
+    // })
+
+
     socket.on("event", (data)=>{
         const { event, message } = data;
         console.log(`event => ${event}`);
+        var found = false
 
         devises.forEach(receiver => {
             if(receiver['ip'] == data['ip'] && receiver['type'] == data['target_type']){
+                found = true;
                 io.to(receiver.id).emit(event, message);
             }
         });
 
+        if(found==false)
+            socket.emit(data["eventError"], data["messageError"])
     })
 
 
