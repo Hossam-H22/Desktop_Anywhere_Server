@@ -71,7 +71,7 @@ io.on("connection", (socket)=> {
         // });
 
         devises.forEach(receiver => {
-            if(receiver['ip'] == data['ip'] && receiver['type'] != data['type']){
+            if(receiver['ip'] == data['ip'] && receiver['type'] == data['target_type']){
                 io.to(receiver.id).emit(event, message);
             }
         });
