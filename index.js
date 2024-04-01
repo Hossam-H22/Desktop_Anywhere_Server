@@ -63,7 +63,7 @@ io.on("connection", (socket)=> {
 
     socket.on("event", (data)=>{
         const { event, message } = data;
-        console.log(event);
+        console.log(`event => ${event}`);
 
         devises.forEach(receiver => {
             if(receiver['ip'] == data['ip'] && receiver['type'] == data['target_type']){
@@ -101,13 +101,30 @@ io.on("connection", (socket)=> {
 
     socket.on("getStunAndTurn", async ()=>{
         const stun = await stunModel.find();
+        var newStun=[]
+        stun.array.forEach(element => {
+            newStun.push(element.url);
+        });
+
         const turn = await turnModel.find();
-        const data = {
-            "stun": stun,
-            "turn": turn,
-        };
-        console.log(data);
-        socket.emit("receiveStunAndTurn", data);
+        var newTurn=[]
+        stun.array.forEach(element => {
+            newTurn.push({
+                "urls": element.url,
+                "username": element.username,
+                "credential": element.credential,
+            });
+        });
+        var configuration = {
+            "iceServers": [
+                {
+                    'urls': newStun
+                },
+                ...newTurn,
+            ]
+        }
+
+        socket.emit("receiveStunAndTurn", configuration);
     });
 
 });
