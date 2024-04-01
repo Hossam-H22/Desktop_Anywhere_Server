@@ -1,6 +1,6 @@
 {
-    "name": "webrtc_try1",
-    "short_name": "webrtc_try1",
+    "name": "desktop_anywhere_web",
+    "short_name": "desktop_anywhere_web",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
