@@ -82,7 +82,7 @@ io.on("connection", (socket)=> {
     socket.on("addDevice", (data)=>{
         const newDevises = devises.filter(devise => {
             // return !(devise['ip'] == data['ip'] && devise['type'] == data['type']);
-            return !(devise['ip'] == data['ip'] && data['type'] != "mobile");
+            return !(devise['ip'] == data['ip'] && devise['type'] == data['type'] && data['type'] != "mobile");
             // return !(devise['id'] == socket.id);
         });
         devises = newDevises;
