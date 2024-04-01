@@ -1,4 +1,4 @@
-import turnModel from './../../../../DB/Models/turn.model.js';
+import turnModel from './../../../../DB/Models/Turn.model.js';
 import { asyncHandler } from './../../../utils/errorHandling.js';
 
 
