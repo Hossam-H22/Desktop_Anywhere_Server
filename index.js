@@ -5,6 +5,8 @@ import { Server } from 'socket.io';
 import cors from 'cors'
 import candidateRouter from "./src/modules/Candidate/candidate.router.js"
 import offerRouter from "./src/modules/Offer/offer.router.js"
+import stunRouter from "./src/modules/Stun/stun.router.js"
+import trunRouter from "./src/modules/Turn/turn.router.js"
 import connectDB from './DB/connection.js';
 import { globalErrorHandling } from "./src/utils/errorHandling.js";
 
@@ -29,6 +31,8 @@ app.get("/", (req, res) => {
 app.get('/welcome', (req, res)=> res.send("Welcome to Desktop Anywhere Server"));
 app.use("/candidate", candidateRouter);
 app.use("/connection", offerRouter);
+app.use("/stun", stunRouter);
+app.use("/turn", trunRouter);
 app.all("*", (req, res, next)=>{
     return res.json({message: "In-valid routing"});
 }); 
@@ -56,19 +60,8 @@ io.on("connection", (socket)=> {
     // console.log(socket.id);
 
     socket.on("event", (data)=>{
-
         const { event, message } = data;
-        // devises.forEach(sender => {
-        //     if(sender['id']==socket.id){
-
-        //         devises.forEach(receiver => {
-        //             if(receiver['ip'] == data['ip'] && receiver['type'] != data['type']){
-        //                 io.to(receiver.id).emit(event, message);
-        //             }
-        //         });
-
-        //     }
-        // });
+        console.log(event);
 
         devises.forEach(receiver => {
             if(receiver['ip'] == data['ip'] && receiver['type'] == data['target_type']){
@@ -80,6 +73,7 @@ io.on("connection", (socket)=> {
 
 
     socket.on("addDevice", (data)=>{
+        console.log("addDevice");
         const newDevises = devises.filter(devise => {
             // return !(devise['ip'] == data['ip'] && devise['type'] == data['type']);
             return !( devise['ip'] == data['ip'] && devise['type'] == data['type'] && (data['type'] == "desktop" || data['type'] == "web") );
@@ -95,12 +89,12 @@ io.on("connection", (socket)=> {
 
     
     socket.on("disconnect", () => {
+        console.log("disconnect");
         const newDevises = devises.filter(devise => {
             return devise['id'] != socket.id;
         });
         devises = newDevises;
         console.log(devises);
     });
-
 
 });

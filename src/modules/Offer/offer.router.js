@@ -1,8 +1,6 @@
 
 import { Router } from 'express'
 import * as offerController from './controller/offer.js';
-import validation from '../../middleware/validation.js';
-import * as validators from "./offer.validation.js"
 
 const router = Router();
 
