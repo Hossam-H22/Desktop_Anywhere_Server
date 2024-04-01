@@ -102,13 +102,13 @@ io.on("connection", (socket)=> {
     socket.on("getStunAndTurn", async ()=>{
         const stun = await stunModel.find();
         var newStun=[]
-        stun.forEach(element => {
+        stun?.forEach(element => {
             newStun.push(element.url);
         });
 
         const turn = await turnModel.find();
         var newTurn=[]
-        stun.forEach(element => {
+        turn?.forEach(element => {
             newTurn.push({
                 "urls": element.url,
                 "username": element.username,
