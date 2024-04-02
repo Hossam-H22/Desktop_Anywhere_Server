@@ -97,8 +97,8 @@ io.on("connection", (socket)=> {
     socket.on("addDevice", (data)=>{
         console.log("addDevice");
         const newDevises = devises.filter(devise => {
-            // return !(devise['ip'] == data['ip'] && devise['type'] == data['type']);
-            return !( devise['ip'] == data['ip'] && devise['type'] == data['type'] && (data['type'] == "desktop" || data['type'] == "web") );
+            return !(devise['ip'] == data['ip'] && devise['type'] == data['type']);
+            // return !( devise['ip'] == data['ip'] && devise['type'] == data['type'] && (data['type'] == "desktop" || data['type'] == "web") );
             // return !(devise['id'] == socket.id);
         });
         devises = newDevises;

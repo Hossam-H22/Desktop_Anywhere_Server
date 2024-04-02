@@ -8844,11 +8844,11 @@ return A.K($async$a9V,r)},
 CU:function CU(a){this.a=a},
 u4:function u4(a){this.a=a},
 JA:function JA(a,b,c,d){var _=this
-_.e=$
-_.w=_.r=null
-_.x=a
-_.y=b
-_.z=c
+_.d=$
+_.r=_.f=null
+_.w=a
+_.x=b
+_.y=c
 _.a=null
 _.b=d
 _.c=null},
@@ -38986,12 +38986,12 @@ j.ax=b.h(0,"auth")
 d=m.cy
 d===$&&A.f()
 if(d)j.Wh()
-k.l(0,l,j)}h.e=j
+k.l(0,l,j)}h.d=j
 j.cY(0,"connect",new A.a6b(h))
-h.e.cY(0,"password",new A.a6c(h))
-h.e.cY(0,"errorPassword",new A.a6d())
-h.e.cY(0,"roomId",new A.a6e(h))
-h.e.cY(0,"disconnect",new A.a6f())},
+h.d.cY(0,"password",new A.a6c(h))
+h.d.cY(0,"errorPassword",new A.a6d())
+h.d.cY(0,"roomId",new A.a6e(h))
+h.d.cY(0,"disconnect",new A.a6f())},
 lF(){var s=0,r=A.L(t.y),q,p=2,o,n=this,m,l,k,j,i,h
 var $async$lF=A.M(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:p=4
@@ -39000,9 +39000,9 @@ return A.O(A.axr(A.ec("https://api.ipify.org/?format=json")),$async$lF)
 case 7:m=b
 if(m.b===200){j=m
 l=B.ap.FJ(0,A.axb(A.ava(j.e).c.a.h(0,"charset")).cB(0,j.w),null)
-n.r=J.aI(l,"ip")
+n.f=J.aI(l,"ip")
 n.aN(new A.a67())
-A.bY(n.r)
+A.bY(n.f)
 n.K4()
 q=!0
 s=1
@@ -39034,11 +39034,11 @@ break
 case 2:A.bY("Trying to get public IP ....")
 s=5
 return A.O(q.lF(),$async$lK)
-case 5:case 3:p=q.x
+case 5:case 3:p=q.w
 p.fS(0)
-o=q.y
+o=q.x
 o.fS(0)
-n=q.z
+n=q.y
 n.r=new A.a69(q)
 n.ln(p,o)
 return A.J(null,r)}})
@@ -39046,25 +39046,25 @@ return A.K($async$lK,r)},
 b8(){this.lK()
 this.bt()},
 P(a){var s=this,r=null,q=A.aaM(20),p=t.af
-return new A.vk(new A.qL(B.Ig,B.k,!0,new A.KD(r,r,1/0,56),r),A.zG(A.aeN(A.a([B.tC,A.re(r,A.aeN(A.a([B.Ih,B.Eu,A.ac3(A.a([A.ahs("IP:  "+A.h(s.r),B.tM),B.tB,A.abn(r,B.il,new A.a64(s),r,r)],p),B.bM,B.dj,B.dk),B.Et,A.ac3(A.a([A.ahs("Password:  "+A.h(s.w),B.tM),B.tB,A.abn(r,B.il,new A.a65(s),r,r)],p),B.bM,B.dj,B.dk)],p),B.bM,B.dj),r,new A.dY(B.k,r,r,q,r,r,B.aK),r,r,new A.bw(35,35,35,35),450),B.tC,A.re(r,new A.uV(s.x,r),r,r,300,r,r,500)],p),B.bM,B.dj),r,r),A.afz(B.k,B.xy,!1,new A.a66(s),"Share Screen"),r)}}
+return new A.vk(new A.qL(B.Ig,B.k,!0,new A.KD(r,r,1/0,56),r),A.zG(A.aeN(A.a([B.tC,A.re(r,A.aeN(A.a([B.Ih,B.Eu,A.ac3(A.a([A.ahs("IP:  "+A.h(s.f),B.tM),B.tB,A.abn(r,B.il,new A.a64(s),r,r)],p),B.bM,B.dj,B.dk),B.Et,A.ac3(A.a([A.ahs("Password:  "+A.h(s.r),B.tM),B.tB,A.abn(r,B.il,new A.a65(s),r,r)],p),B.bM,B.dj,B.dk)],p),B.bM,B.dj),r,new A.dY(B.k,r,r,q,r,r,B.aK),r,r,new A.bw(35,35,35,35),450),B.tC,A.re(r,new A.uV(s.w,r),r,r,300,r,r,500)],p),B.bM,B.dj),r,r),A.afz(B.k,B.xy,!1,new A.a66(s),"Share Screen"),r)}}
 A.a6b.prototype={
 $1(a){var s,r,q
 A.bY("connect")
 s=this.a
-r=s.e
+r=s.d
 r===$&&A.f()
 A.bY(r.CW)
 r=t.N
 q=t.T
-s.e.ic("addDevice",A.Z(["ip",s.r,"type","web"],r,q))
-s.e.ic("event",A.Z(["ip",s.r,"type","web","target_type","desktop","event","getPassword","message","","eventError","errorPassword","messageError","device not found"],r,q))},
+s.d.ic("addDevice",A.Z(["ip",s.f,"type","web"],r,q))
+if(s.r==null)s.d.ic("event",A.Z(["ip",s.f,"type","web","target_type","desktop","event","getPassword","message","","eventError","errorPassword","messageError","device not found"],r,q))},
 $S:2}
 A.a6c.prototype={
 $1(a){var s=this.a
 s.aN(new A.a6a(s,a))},
 $S:2}
 A.a6a.prototype={
-$0(){this.a.w=this.b},
+$0(){this.a.r=this.b},
 $S:0}
 A.a6d.prototype={
 $1(a){},
@@ -39073,7 +39073,7 @@ A.a6e.prototype={
 $1(a){var s
 A.bY(a)
 s=this.a
-s.z.hx(J.aI(a,"roomId"),s.y)},
+s.y.hx(J.aI(a,"roomId"),s.x)},
 $S:2}
 A.a6f.prototype={
 $1(a){A.bY("disconnect")},
@@ -39083,21 +39083,21 @@ $0(){},
 $S:0}
 A.a69.prototype={
 $1(a){var s=this.a
-s.y.stM(0,a)
+s.x.stM(0,a)
 s.aN(new A.a68())},
 $S:156}
 A.a68.prototype={
 $0(){},
 $S:0}
 A.a64.prototype={
-$0(){A.A_(new A.zY(A.h(this.a.r)))},
+$0(){A.A_(new A.zY(A.h(this.a.f)))},
 $S:0}
 A.a65.prototype={
-$0(){A.A_(new A.zY(A.h(this.a.r)))},
+$0(){A.A_(new A.zY(A.h(this.a.f)))},
 $S:0}
 A.a66.prototype={
 $0(){var s=this.a
-s.z.ln(s.x,s.y)},
+s.y.ln(s.w,s.x)},
 $S:0}
 A.a0v.prototype={
 hx(a,b){return this.Zv(a,b)},
