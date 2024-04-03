@@ -30,13 +30,13 @@ app.get("/", (req, res) => {
 
 // App Routing
 
-app.get('/welcome', (req, res)=> res.send("Welcome to Desktop Anywhere Server"));
+app.get('/welcome', (req, res)=> res.status(200).json({message: "Welcome to Desktop Anywhere Server"}));
 app.use("/candidate", candidateRouter);
 app.use("/connection", offerRouter);
 app.use("/stun", stunRouter);
 app.use("/turn", trunRouter);
 app.all("*", (req, res, next)=>{
-    return res.json({message: "In-valid routing"});
+    return res.status(404).json({message: "In-valid routing"});
 }); 
 
 // Error handling middleware
