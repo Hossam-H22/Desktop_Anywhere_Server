@@ -8,7 +8,7 @@ import offerRouter from "./src/modules/Offer/offer.router.js"
 import stunRouter from "./src/modules/Stun/stun.router.js"
 import trunRouter from "./src/modules/Turn/turn.router.js"
 import connectDB from './DB/connection.js';
-import { globalErrorHandling } from "./src/utils/errorHandling.js";
+import { asyncHandler, globalErrorHandling } from "./src/utils/errorHandling.js";
 import turnModel from './DB/Models/Turn.model.js';
 import stunModel from './DB/Models/Stun.model.js';
 
@@ -35,6 +35,30 @@ app.use("/candidate", candidateRouter);
 app.use("/connection", offerRouter);
 app.use("/stun", stunRouter);
 app.use("/turn", trunRouter);
+app.get("/confegration", asyncHandler(async (req, res, next) => {
+    const stun = await stunModel.find();
+    var newStun=[]
+    stun?.forEach(element => newStun.push(element.url));
+
+    const turn = await turnModel.find();
+    var newTurn=[]
+    turn?.forEach(element => 
+        newTurn.push({
+            "urls": element.url,
+            "username": element.username,
+            "credential": element.credential,
+        })
+    )
+    var configuration = {
+        "iceServers": [
+            {
+                'urls': newStun
+            },
+            ...newTurn,
+        ]
+    }
+    return res.status(200).json({ message: "Done", configuration })
+}));
 app.all("*", (req, res, next)=>{
     return res.status(404).json({message: "In-valid routing"});
 }); 
