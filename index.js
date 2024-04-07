@@ -3,12 +3,13 @@ import * as dotenv from 'dotenv'
 import express from 'express'
 import { Server } from 'socket.io';
 import cors from 'cors'
+import { asyncHandler, globalErrorHandling } from "./src/utils/errorHandling.js";
 import candidateRouter from "./src/modules/Candidate/candidate.router.js"
 import offerRouter from "./src/modules/Offer/offer.router.js"
 import stunRouter from "./src/modules/Stun/stun.router.js"
 import trunRouter from "./src/modules/Turn/turn.router.js"
+import userRouter from "./src/modules/User/user.router.js"
 import connectDB from './DB/connection.js';
-import { asyncHandler, globalErrorHandling } from "./src/utils/errorHandling.js";
 import turnModel from './DB/Models/Turn.model.js';
 import stunModel from './DB/Models/Stun.model.js';
 
@@ -35,6 +36,7 @@ app.use("/candidate", candidateRouter);
 app.use("/connection", offerRouter);
 app.use("/stun", stunRouter);
 app.use("/turn", trunRouter);
+app.use("/user", userRouter);
 app.get("/confegration", asyncHandler(async (req, res, next) => {
     const stun = await stunModel.find();
     var newStun=[]
