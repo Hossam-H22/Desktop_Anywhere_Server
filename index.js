@@ -128,6 +128,7 @@ io.on("connection", (socket)=> {
     })
 
     socket.on("checkAvailableDevice", (data)=>{
+        console.log("checkAvailableDevice");
         var found = checkAvailability(data['ip'], data['target_type']);
         socket.emit("checkIPResult", {
             "message": found? "found" : "Please check the IP",
