@@ -76,7 +76,15 @@ const server = app.listen(port, () => console.log(`app running on port .........
 
 
 
-
+function checkAvailability(ip, type){
+    var found = false;
+    devices.forEach(device => {
+        if(device['ip'] == ip && device['type'] == type){
+            found = true;
+        }
+    });
+    return found
+}
 
 var devices = [];
 
@@ -120,12 +128,7 @@ io.on("connection", (socket)=> {
     })
 
     socket.on("checkAvailableDevice", (data)=>{
-        var found = false
-        devices.forEach(device => {
-            if(device['ip'] == data['ip'] && device['type'] == data['type']){
-                found = true;
-            }
-        });
+        var found = checkAvailability(data['ip'], data['type']);
         socket.emit("checkResult", found?"found":"not found");
     });
 
@@ -182,3 +185,6 @@ io.on("connection", (socket)=> {
     });
 
 });
+
+
+export default checkAvailability;
