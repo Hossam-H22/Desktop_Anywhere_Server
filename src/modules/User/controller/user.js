@@ -37,6 +37,7 @@ export const add = asyncHandler(async (req, res, next) => {
             user.private_ip = req.body.private_ip;
             await user.save();
         }
+        return user? res.status(200).json({ message: "Done", user }) : next(new Error(`Found Error`, { case: 400 }));
     }
     else {
         user = await userModel.create({
@@ -44,8 +45,9 @@ export const add = asyncHandler(async (req, res, next) => {
             private_ip: req.body.private_ip,
             mac_address: req.body.mac_address,
         });
+        return user? res.status(201).json({ message: "Done", user }) : next(new Error(`Found Error`, { case: 400 }));
     }
-    return user? res.status(201).json({ message: "Done", user }) : next(new Error(`Found Error`, { case: 400 }));
+    
 })
 
 export const deleteOne = asyncHandler(async (req, res, next) => {
