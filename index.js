@@ -133,6 +133,7 @@ io.on("connection", (socket)=> {
         socket.emit("checkIPResult", {
             "message": found? "found" : "Please check the IP",
             "found": found,
+            "note": data["note"],
         });
     });
 
