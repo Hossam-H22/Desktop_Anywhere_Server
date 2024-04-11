@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import mongoose from 'mongoose'
 
-const userSchema = new Schema({
+const deviceSchema = new Schema({
     public_ip: {
         type: String,
         required: true,
@@ -19,6 +19,6 @@ const userSchema = new Schema({
 });
 
 
-const userModel = mongoose.models.User || model('User', userSchema);
+const deviceModel = mongoose.models.Device || model('Device', deviceSchema);
 
-export default userModel;
+export default deviceModel;
