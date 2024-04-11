@@ -9,22 +9,24 @@ export const getAll = asyncHandler(async (req, res, next) => {
 })
 
 export const get = asyncHandler(async (req, res, next) => {
-    const user = await userModel.findOne({ip: req.params.ip});
+    const user = await userModel.findOne({public_ip: req.params.ip});
     return user ? res.status(200).json({ message: "Done", user }) : next(new Error(`Not Found user with this ip ${req.params.ip}`, { case: 404 }));
 })
 
 export const add = asyncHandler(async (req, res, next) => {
     var user = await userModel.findOne({username: req.body.username});
     if(user){
-        if(user.ip != req.body.ip){
-            user.ip = req.body.ip;
+        if(user.public_ip != req.body.public_ip || user.private_ip != req.body.private_ip){
+            user.public_ip = req.body.public_ip;
+            user.private_ip = req.body.private_ip;
             await user.save();
         }
     }
     else {
         user = await userModel.create({
-            ip: req.body.ip,
-            username: req.body.username,
+            public_ip: req.body.public_ip,
+            private_ip: req.body.private_ip,
+            mac_address: req.body.mac_address,
         });
     }
     return user? res.status(201).json({ message: "Done", user }) : next(new Error(`Found Error`, { case: 400 }));

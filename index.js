@@ -78,7 +78,7 @@ const server = app.listen(port, () => console.log(`app running on port .........
 
 
 
-var devises = [];
+var devices = [];
 
 const io = new Server(server, {
     cors: '*'
@@ -108,7 +108,7 @@ io.on("connection", (socket)=> {
         console.log(`event => ${event}`);
         var found = false
 
-        devises.forEach(receiver => {
+        devices.forEach(receiver => {
             if(receiver['ip'] == data['ip'] && receiver['type'] == data['target_type']){
                 found = true;
                 io.to(receiver.id).emit(event, message);
@@ -119,30 +119,38 @@ io.on("connection", (socket)=> {
             socket.emit(data["eventError"], data["messageError"])
     })
 
+    socket.on("checkAvailableDevice", (data)=>{
+        var found = false
+        devices.forEach(device => {
+            if(device['ip'] == data['ip'] && device['type'] == data['type']){
+                found = true;
+            }
+        });
+        socket.emit("checkResult", found?"found":"not found");
+    });
 
     socket.on("addDevice", (data)=>{
         console.log("addDevice");
-        const newDevises = devises.filter(devise => {
-            return !(devise['ip'] == data['ip'] && devise['type'] == data['type']);
-            // return !( devise['ip'] == data['ip'] && devise['type'] == data['type'] && (data['type'] == "desktop" || data['type'] == "web") );
-            // return !(devise['id'] == socket.id);
+        const newDevices = devices.filter(device => {
+            return !(device['ip'] == data['ip'] && device['type'] == data['type']);
+            // return !( device['ip'] == data['ip'] && device['type'] == data['type'] && (data['type'] == "desktop" || data['type'] == "web") );
+            // return !(device['id'] == socket.id);
         });
-        devises = newDevises;
-        devises.push({
+        devices = newDevices;
+        devices.push({
             id: socket.id,
             ...data,
         });
-        console.log(devises);
+        console.log(devices);
     });
-
     
     socket.on("disconnect", () => {
         console.log("disconnect");
-        const newDevises = devises.filter(devise => {
-            return devise['id'] != socket.id;
+        const newDevices = devices.filter(device => {
+            return device['id'] != socket.id;
         });
-        devises = newDevises;
-        console.log(devises);
+        devices = newDevices;
+        console.log(devices);
     });
 
     socket.on("getStunAndTurn", async ()=>{

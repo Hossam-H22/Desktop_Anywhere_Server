@@ -2,11 +2,15 @@ import { Schema, model } from "mongoose";
 import mongoose from 'mongoose'
 
 const userSchema = new Schema({
-    ip: {
+    public_ip: {
         type: String,
         required: true,
     },
-    username: {
+    private_ip: {
+        type: String,
+        required: true,
+    },
+    mac_address: {
         type: String,
         required: true,
     },
