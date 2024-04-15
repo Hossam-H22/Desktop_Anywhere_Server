@@ -124,7 +124,7 @@ io.on("connection", (socket)=> {
         });
 
         if(found==false)
-            socket.emit(data["eventError"], data["messageError"])
+            socket.emit(data["eventError"], {ip: data['ip'], messageError: data["messageError"]})
     })
 
     socket.on("checkAvailableDevice", (data)=>{
