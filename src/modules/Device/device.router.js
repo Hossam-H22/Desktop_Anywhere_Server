@@ -6,7 +6,7 @@ import * as deviceController from './controller/device.js';
 const router = Router();
 
 router.get("/", deviceController.getAll);
-router.get("/information", deviceController.getInformation);
+router.post("/information", deviceController.getInformation);
 router.get("/:ip", deviceController.get);
 router.post("/", deviceController.add);
 router.delete("/:id", deviceController.deleteOne);

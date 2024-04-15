@@ -17,7 +17,7 @@ export const getInformation = asyncHandler(async (req, res, next) => {
             public_ip: element.public_ip,
             private_ip: element.private_ip,
             mac_address: element.mac_address,
-            availabile: checkAvailability(element.public_ip, "desktop"),
+            availabile: checkAvailability(element.public_ip, "desktop")? 1 : 0,
             updatedAt: element.updatedAt,
         })
     });
