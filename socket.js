@@ -12,14 +12,22 @@ export function checkAvailability(ip, type) {
     return found
 }
 
+export function refreshDevicesConnection(ip){
+    devices.forEach(device => {
+        if (device['ip'] == ip) {
+            io.to(device.id).emit("refreshConnection", "refresh");
+        }
+    });
+}
+
 var devices = [];
+var io;
 
 const initSocket = (server) => {
 
-    const io = new Server(server, {
+    io = new Server(server, {
         cors: '*'
     });
-
 
     io.on("connection", (socket) => {
         // console.log(socket.id);

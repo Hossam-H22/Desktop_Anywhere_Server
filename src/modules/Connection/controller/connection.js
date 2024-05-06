@@ -1,5 +1,7 @@
 
+import desktopModel from '../../../../DB/Models/Desktop.model.js';
 import mobileModel from '../../../../DB/Models/Mobile.model.js';
+import { refreshDevicesConnection } from '../../../../socket.js';
 import connectionModel from './../../../../DB/Models/Connection.model.js';
 import { asyncHandler } from './../../../utils/errorHandling.js';
 
@@ -45,7 +47,7 @@ export const getMobileConnections = asyncHandler(async (req, res, next) => {
 
 export const addConnection = asyncHandler(async (req, res, next) => {
     const { desktop_mac, mobile_id } = req.body;
-    var connection = await connectionModel.create({ 'desktop_mac': desktop_mac, 'mobile_id': mobile_id, });
+    var connection = await connectionModel.findOne({ 'desktop_mac': desktop_mac, 'mobile_id': mobile_id, });
     if(connection){
         return res.status(200).json({ message: "Done", connection });
     }else {
@@ -53,14 +55,23 @@ export const addConnection = asyncHandler(async (req, res, next) => {
             'desktop_mac': desktop_mac,
             'mobile_id': mobile_id,
         });
+
+        const {public_ip} = await desktopModel.findOne({"mac_address": connection.desktop_mac});
+        refreshDevicesConnection(public_ip);
     }
     return connection? res.status(200).json({ message: "Done", connection }) : next(new Error(`Found Error`, { case: 404 }));
 })
 
 
 export const deleteConnection = asyncHandler(async (req, res, next) => {
-    const connection = await connectionModel.deleteOne({ '_id': req.params.id });
-    return connection.deletedCount ? res.status(200).json({ message: "Done"}) 
+    const connection = await connectionModel.findOneAndDelete({ '_id': req.params.id });
+    if(connection==null){
+        next(new Error(`In-valid or Not Found ID: ${req.params.id}`, {cause: 404}))
+    }
+    const {public_ip} = await desktopModel.findOne({"mac_address": connection.desktop_mac});
+    refreshDevicesConnection(public_ip);
+
+    return public_ip ? res.status(200).json({ message: "Done"}) 
                     : next(new Error(`In-valid or Not Found ID: ${req.params.id}`, {cause: 404}));
 })
 
