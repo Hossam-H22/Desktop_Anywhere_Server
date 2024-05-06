@@ -13,12 +13,27 @@ export const getAll = asyncHandler(async (req, res, next) => {
 
 export const getDesktopConnections = asyncHandler(async (req, res, next) => {
     const mobiles = await connectionModel.find({ 'desktop_mac': req.params.desktop_mac });
+
     var mobileIds = [];
     mobiles.forEach(element => {
         mobileIds.push(element.mobile_id);
     });
     const mobilesData = await mobileModel.find({ '_id': mobileIds });
-    return res.status(200).json({ message: "Done", mobiles: mobilesData });
+
+    var data = [];
+    mobilesData.forEach(element => {
+        for(var i=0; i<mobiles.length; i++){
+            if(`${element._id}` == `${mobiles[i].mobile_id}`){
+                data.push({
+                    ...element.toObject(),
+                    connectionId: mobiles[i]._id
+                });
+                break;
+            }
+        }
+    });
+    console.log(data);
+    return res.status(200).json({ message: "Done", mobiles: data });
 })
 
 
