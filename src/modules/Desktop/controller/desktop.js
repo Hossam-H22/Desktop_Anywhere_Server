@@ -1,6 +1,7 @@
 import { asyncHandler } from './../../../utils/errorHandling.js';
 import desktopModel from './../../../../DB/Models/Desktop.model.js';
 import { checkAvailability } from '../../../../socket.js';
+import connectionModel from '../../../../DB/Models/Connection.model.js';
 
 
 
@@ -21,6 +22,39 @@ export const getInformation = asyncHandler(async (req, res, next) => {
             available: checkAvailability(element.public_ip, "desktop")? 1 : 0,
             updatedAt: element.updatedAt,
         })
+    });
+    return res.status(200).json({ message: "Done", ready_devices });
+})
+
+export const getConnectedDevicesInformation = asyncHandler(async (req, res, next) => {
+    const devices = await desktopModel.find({mac_address: req.body.mac});
+    const connections = await connectionModel.find({mobile_id: req.params.mobile_id});
+    var ready_devices = [];
+    devices.forEach(element => {
+        var authorized = false;
+        for(var i=0; i<connections.length; i++){
+            if(element.mac_address == connections[i].desktop_mac){
+                authorized = true;
+                break;
+            }
+        }
+        if (authorized){
+            ready_devices.push({
+                authorized,
+                public_ip: element.public_ip,
+                private_ip: element.private_ip,
+                mac_address: element.mac_address,
+                available: checkAvailability(element.public_ip, "desktop")? 1 : 0,
+                updatedAt: element.updatedAt,
+            })
+        }else{
+            ready_devices.push({
+                authorized,
+                public_ip: element.public_ip,
+                mac_address: element.mac_address,
+            })
+        }
+        
     });
     return res.status(200).json({ message: "Done", ready_devices });
 })
