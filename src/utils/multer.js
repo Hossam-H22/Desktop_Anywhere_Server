@@ -14,7 +14,7 @@ export const fileValidation = {
 
 export function fileUpload(customPath = 'general', customValidation = []) {
     
-    const fullPath = path.join(__dirname, `../uploads/${customPath}/`);
+    const fullPath = path.join(__dirname, `./../uploads/${customPath}/`);
 
     if(!fs.existsSync(fullPath)) {
         fs.mkdirSync(fullPath, { recursive: true });
@@ -38,7 +38,7 @@ export function fileUpload(customPath = 'general', customValidation = []) {
         }
     }
 
-    const upload = multer({ dest: 'uploads', fileFilter, storage });
+    const upload = multer({ dest: 'uploads', /*fileFilter,*/ storage });
     return upload;
 
 }

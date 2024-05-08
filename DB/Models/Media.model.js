@@ -2,8 +2,12 @@ import { Schema, Types, model } from "mongoose";
 import mongoose from 'mongoose'
 
 const mediaSchema = new Schema({
-    file: { 
-        type: Object, 
+    secure_url: { 
+        type: String, 
+        required: true, 
+    },
+    file_name: { 
+        type: String, 
         required: true, 
     },
     createdBy: { 
