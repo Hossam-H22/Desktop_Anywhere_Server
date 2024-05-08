@@ -2,6 +2,11 @@ import { Schema, Types, model } from "mongoose";
 import mongoose from 'mongoose'
 
 const mediaSchema = new Schema({
+    createdBy: { 
+        type: Types.ObjectId, 
+        ref:'Mobile', 
+        required: true, 
+    },
     secure_url: { 
         type: String, 
         required: true, 
@@ -10,9 +15,12 @@ const mediaSchema = new Schema({
         type: String, 
         required: true, 
     },
-    createdBy: { 
-        type: Types.ObjectId, 
-        ref:'Mobile', 
+    mimetype: { 
+        type: String, 
+        required: true, 
+    },
+    size: { 
+        type: Number, 
         required: true, 
     },
 }, {

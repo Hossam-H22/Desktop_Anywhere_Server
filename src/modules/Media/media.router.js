@@ -6,7 +6,7 @@ import { fileUpload } from '../../utils/multer.js';
 
 const router = Router();
 
-router.get("/", mediaController.getAll);
+router.get("/data", mediaController.getAllFilesData);
 router.get("/view/:mobile_Id", mediaController.getOne);
 router.get("/get/:mobile_Id", mediaController.getOneAndDelete);
 router.post("/", fileUpload().single('file'), mediaController.add);
