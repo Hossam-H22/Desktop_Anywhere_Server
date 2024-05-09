@@ -1,7 +1,7 @@
 
 import desktopModel from '../../../../DB/Models/Desktop.model.js';
 import mobileModel from '../../../../DB/Models/Mobile.model.js';
-import { refreshDevicesConnection } from '../../../../socket.js';
+import { refreshDevicesConnection } from '../../../socket.js';
 import connectionModel from './../../../../DB/Models/Connection.model.js';
 import { asyncHandler } from './../../../utils/errorHandling.js';
 

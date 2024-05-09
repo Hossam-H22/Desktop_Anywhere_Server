@@ -1,6 +1,6 @@
 import { asyncHandler } from './../../../utils/errorHandling.js';
 import desktopModel from './../../../../DB/Models/Desktop.model.js';
-import { checkAvailability } from '../../../../socket.js';
+import { checkAvailability } from '../../../socket.js';
 import connectionModel from '../../../../DB/Models/Connection.model.js';
 
 
