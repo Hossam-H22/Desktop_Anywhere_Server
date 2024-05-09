@@ -34,16 +34,18 @@ const initSchedule = () => {
     const deleteExpiredFiles = schedule.scheduleJob('20 */30 * * * *', async () => {
         const expireTimeInHours = 1
         const files = await mediaModel.find();
-        const deletedFilesIds = [];
-        files.forEach(async fileData => {
-            if (compareDate(fileData.createdAt, expireTimeInHours)) {
-                deletedFilesIds.push(fileData.createdBy);
-                if (await fileExists(fileData.secure_url)) {
-                    deleteFile(fileData.secure_url);
+        if (files.length > 0) {
+            const deletedFilesIds = [];
+            files.forEach(async fileData => {
+                if (compareDate(fileData.createdAt, expireTimeInHours)) {
+                    deletedFilesIds.push(fileData.createdBy);
+                    if (await fileExists(fileData.secure_url)) {
+                        deleteFile(fileData.secure_url);
+                    }
                 }
-            }
-        });
-        await mediaModel.deleteMany({ createdBy: deletedFilesIds });
+            });
+            await mediaModel.deleteMany({ createdBy: deletedFilesIds });
+        }
         console.log(`Delete files that were uploaded for more than ${expireTimeInHours} Hours, From Schedule`);
     });
 

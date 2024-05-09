@@ -1,9 +1,9 @@
 
-import * as dotenv from 'dotenv'
-import express from 'express'
+import initSchedule from './src/scheduleJobs.js';
 import initApp from './src/app.router.js';
 import initSocket from './src/socket.js';
-import initSchedule from './src/scheduleJobs.js';
+import * as dotenv from 'dotenv'
+import express from 'express'
 
 
 dotenv.config()

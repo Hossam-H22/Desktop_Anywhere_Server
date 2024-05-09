@@ -1,22 +1,19 @@
 
 
+import { asyncHandler, globalErrorHandling } from "./utils/errorHandling.js";
 import connectionRouter from "./modules/Connection/connection.router.js"
-import stunRouter from "./modules/Stun/stun.router.js"
-import trunRouter from "./modules/Turn/turn.router.js"
 import desktopRouter from "./modules/Desktop/desktop.router.js"
 import mobileRouter from "./modules/Mobile/mobile.router.js"
 import mediaRouter from "./modules/Media/media.router.js"
+import stunRouter from "./modules/Stun/stun.router.js"
+import trunRouter from "./modules/Turn/turn.router.js"
 import stunModel from "./../DB/Models/Stun.model.js"
 import turnModel from "./../DB/Models/Turn.model.js"
-import mediaModel from './../DB/Models/Media.model.js';
 import connectDB from './../DB/connection.js';
-import { asyncHandler, globalErrorHandling } from "./utils/errorHandling.js";
-
+import serveIndex from "serve-index"
 import { fileURLToPath } from 'url'
 import morgan from "morgan"
 import cors from 'cors'
-import { fileUpload } from "./utils/multer.js"
-import serveIndex from "serve-index"
 import path from 'path'
 
 
