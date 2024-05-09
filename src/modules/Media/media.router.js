@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/data", mediaController.getAllFilesData);
 router.get("/view/:mobile_Id", mediaController.getOne);
-router.get("/get/:mobile_Id", mediaController.getOneAndDelete);
+// router.get("/get/:mobile_Id", mediaController.getOneAndDelete);
 router.post("/", fileUpload().single('file'), mediaController.add);
 router.delete("/:mobile_Id", mediaController.deleteOne);
 
