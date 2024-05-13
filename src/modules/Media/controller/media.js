@@ -1,8 +1,8 @@
 import { asyncHandler } from './../../../utils/errorHandling.js';
 import mediaModel from './../../../../DB/Models/Media.model.js';
+import { fileURLToPath } from 'url'
 import fs from "fs"
 import path from 'path'
-import { fileURLToPath } from 'url'
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -28,21 +28,6 @@ export const getOne = asyncHandler(async (req, res, next) => {
     return file? res.status(200).json({ message: "Done", file }) : next(new Error(`In-valid or Not Found Id or No files for this Id: ${mobile_Id}`, { cause: 404 }));
 })
 
-
-// export const getOneAndDelete = asyncHandler(async (req, res, next) => {
-//     const mobile_Id = req.params.mobile_Id;
-//     const file = await mediaModel.findOneAndDelete({ createdBy: mobile_Id });
-//     if (file) {
-//         if(await fileExists(file.secure_url)){
-//             deleteFile(file.secure_url);
-//         }
-//         else{
-//             console.log('File does not exist');
-//             return next(new Error(`No files found for this Id: ${mobile_Id}`, { cause: 404 }));
-//         }
-//     }
-//     return file? res.status(200).json({ message: "Done", file }) : next(new Error(`In-valid or Not Found Id or No files for this Id: ${mobile_Id} `, { cause: 404 }));
-// })
 
 
 export const add = asyncHandler(async (req, res, next) => {
