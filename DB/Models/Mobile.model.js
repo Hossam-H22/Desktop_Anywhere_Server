@@ -10,6 +10,10 @@ const mobileSchema = new Schema({
         type: String,
         required: true,
     },
+    version_number: {
+        type: String,
+        required: true,
+    },
     // mac_address: {
     //     type: String,
     //     required: true,

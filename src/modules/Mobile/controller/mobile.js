@@ -18,6 +18,7 @@ export const add = asyncHandler(async (req, res, next) => {
     var mobile = await mobileModel.create({
         name: req.body.name,
         model: req.body.model,
+        version_number: req.body.version_number,
     });
     return mobile? res.status(201).json({ message: "Done", mobile }) : next(new Error(`Found Error`, { case: 400 }));
 })
