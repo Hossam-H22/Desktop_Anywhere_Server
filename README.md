@@ -1,7 +1,7 @@
 # Desktop Anywhere Server
 
 
-Welcome to the Desktop Anywhere Server! This project serves as the backend for a [Desktop Anywhere](https://github.com/Hossam-H22/DesktopAnyWhere_GP) project that caters to both users and sellers. Built using Node.js, Express, MongoDB, Socket.IO, and Cloudinary, this API provides a secure and efficient way to manage mobile and desktop operations and media uploading.
+Welcome to the Desktop Anywhere Server! This project serves as the backend for a [Desktop Anywhere](https://github.com/Hossam-H22/DesktopAnyWhere_GP) project. Built using Node.js, Express, MongoDB, Socket.IO, and Cloudinary, this API provides a secure and efficient way to manage mobile and desktop operations and media uploading.
 
 
 
