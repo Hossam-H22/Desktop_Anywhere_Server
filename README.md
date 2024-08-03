@@ -46,7 +46,7 @@ This Server aims to provide a robust backend for [Desktop Anywhere](https://gith
 - **Real-Time Communication:** Enable mobile and desktop to communicate with each other.
 - **Desktop Management:** CRUD operations for managing desktops, including creation, retrieval, updating, and deletion.
 - **Mobile Management:** CRUD operations for managing mobiles, including creation, retrieval, updating, and deletion.
-- **Media Upload:** Utilize Cloudinary to securely upload and manage files.
+- **Media Upload:** Utilize Multer to securely upload and manage files.
 
 
 
@@ -61,7 +61,7 @@ This Server aims to provide a robust backend for [Desktop Anywhere](https://gith
 - **Node.js:** A server-side JavaScript runtime used to build fast and scalable network applications.
 - **Express:** A minimal and flexible Node.js web application framework that simplifies API development.
 - **MongoDB:** A NoSQL database used for efficient and flexible data storage.
-- **Cloudinary:** A cloud-based media management platform for uploading, storing, and delivering images and other media.
+- **Multer:** A media management for uploading, storing, and delivering media.
 - **Socket IO:** A library that enables real-time, bidirectional communication between web clients and servers.
 
 For a complete list of dependencies, please refer to the `package.json` file.
@@ -148,7 +148,7 @@ The project structure follows a modular pattern to enhance maintainability and r
 <a id="Media_Upload"></a>
 
 ## Media Upload
-Cloudinary integration allows for easy and efficient management of media files. Images and other media can be uploaded and linked to their records.
+Multer integration allows for easy and efficient management of media files. Files and other media can be uploaded and linked to their records.
 
 
 
